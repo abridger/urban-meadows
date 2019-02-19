@@ -1,0 +1,9 @@
+geodata
+*.sqlite3
+*.pyc
+.vscode
+*.env
+*.pytest_cache
+venv/*
+*.DS_Store
+logs

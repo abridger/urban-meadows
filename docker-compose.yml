@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  database:
+    image: kartoza/postgis:9.6-2.4
+    environment:
+      - POSTGRES_USER=urban_meadows
+      - POSTGRES_PASS=top_secret
+      - POSTGRES_DBNAME=urban_meadows
+  web:
+    build: .
+    command: ["./wait-for-postgres.sh", "database", "./startup.sh"]
+    environment:
+      - POSTGRES_USER=urban_meadows
+      - POSTGRES_PASSWORD=top_secret
+      - DATABASE_NAME=urban_meadows
+      - DATABASE_USER=urban_meadows
+      - DATABASE_PASSWORD=top_secret
+      - DATABASE_HOST=database
+    volumes:
+      - .:/code
+    ports:
+      - "80:80"
+    depends_on:
+      - database
+    links:
+      - database
